@@ -83,7 +83,7 @@ function App() {
       </form>
 
       {/* Tabel Data */}
-      <table border="1" cellPadding="8">
+      <table border="1" cellPadding="8" style={{margin: "0 auto"}} >
         <thead>
           <tr>
             <th>Kode</th>
@@ -97,7 +97,7 @@ function App() {
         <tbody>
           {siswa.map((s) => (
             <tr key={s.kode_siswa}>
-              <td>{s.kode_siswa}</td>
+              <td style={{textAlign:"center"}}>{s.kode_siswa}</td>
               <td>{s.nama_siswa}</td>
               <td>{s.alamat_siswa}</td>
               <td>{s.tgl_siswa?.substring(0, 10)}</td>
