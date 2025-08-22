@@ -25,8 +25,8 @@ app.post('/siswa', (req, res) => {
 
 // READ - Ambil semua data siswa
 app.get('/siswa', (req, res) => {
-    const sql = 'SELECT * FROM dt_siswa';
-    connection.query(sql, (err, results) => {
+    //const sql = 'SELECT * FROM dt_siswa';
+    connection.query('SELECT * FROM dt_siswa', (err, results) => {
         if (err) {
             console.error(err);
             res.status(500).send({ message: 'Gagal mengambil data siswa' });
