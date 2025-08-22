@@ -35,6 +35,21 @@ function App() {
     getSiswa();
   };
 
+  // Edit siswa
+  const editSiswa = (data) => {
+    setForm(data);
+    setIsEdit(true);
+  }
+
+  //update data ke backend
+  const updateSiswa = async (e) => {
+    e.preventDefault();
+    await axios.put(`http://localhost:3000/siswa/${form.kode_siswa}`, from);
+    setForm({kode_siswa:"", nama_siswa:"", alamat_siswa:"", tgl_siswa:"", jurusan_siswa:""});
+    setIsEdit(false);
+    getSiswa();
+  };
+
   return (
     <div style={{padding:"20px"}}>
       <h1>📚 Data Siswa</h1>
