@@ -19,6 +19,6 @@ INSERT INTO dt_siswa
     ('Nada Nisrina', 'Cilame', '2005-02-28' , 'DKV'),
     ('Rizki Rahmawati', 'Baros', '2005-02-28' , 'Tata Boga'),
     ('Septi Firyal Salsabila', 'Cimareme', '2005-02-28' , 'Elektro');
-    
+
 SELECT * 
 	FROM dt_siswa;
