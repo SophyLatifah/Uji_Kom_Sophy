@@ -70,3 +70,23 @@ app.delete('/siswa/:kode_siswa', (req, res) => {
 app.listen(port, () => {
     console.log(`Server backend berjalan di http://localhost:${port}`);
 });
+
+
+// buat menambahkan aksi edit
+app.put('/siswa/:kode_siswa', (req, res) => {
+    const { kode_siswa } = req.params;
+    const { nama_siswa, alamat_siswa, tgl_siswa, jurusan_siswa } = req.body;
+
+    const sql = `UPDATE dt_siswa 
+                 SET nama_siswa = ?, alamat_siswa = ?, tgl_siswa = ?, jurusan_siswa = ? 
+                 WHERE kode_siswa = ?`;
+
+    connection.query(sql, [nama_siswa, alamat_siswa, tgl_siswa, jurusan_siswa, kode_siswa], (err, result) => {
+        if (err) {
+            console.error("Gagal update:", err);
+            res.status(500).send({ message: "Gagal update" });
+        } else {
+            res.send({ message: "Berhasil update!" });
+        }
+    });
+});

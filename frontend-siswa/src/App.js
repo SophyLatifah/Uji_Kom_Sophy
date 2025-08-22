@@ -10,6 +10,7 @@ function App() {
     tgl_siswa: "",
     jurusan_siswa: ""
   });
+  const [isEdit, setIsEdit] = useState(false);
 
   // 🔹 Ambil data siswa dari backend
   const getSiswa = async () => {
@@ -35,38 +36,50 @@ function App() {
     getSiswa();
   };
 
-  // Edit siswa
+  // 🔹 Edit: isi form dari data tabel
   const editSiswa = (data) => {
     setForm(data);
     setIsEdit(true);
-  }
+  };
 
-  //update data ke backend
+  // 🔹 Update data ke backend
   const updateSiswa = async (e) => {
     e.preventDefault();
-    await axios.put(`http://localhost:3000/siswa/${form.kode_siswa}`, from);
-    setForm({kode_siswa:"", nama_siswa:"", alamat_siswa:"", tgl_siswa:"", jurusan_siswa:""});
+    await axios.put(`http://localhost:3000/siswa/${form.kode_siswa}`, form);
+    setForm({ kode_siswa:"", nama_siswa:"", alamat_siswa:"", tgl_siswa:"", jurusan_siswa:"" });
     setIsEdit(false);
     getSiswa();
   };
 
   return (
-    <div style={{padding:"20px"}}>
-      <h1>📚 Data Siswa</h1>
+    <div style={{ padding: "20px" }}>
+      <h1 style={{textAlign: `center`}}>Data Siswa</h1>
 
-      {/* Form Tambah */}
-      <form onSubmit={tambahSiswa} style={{marginBottom:"20px"}}>
+      {/* Form Tambah / Edit */}
+      <form onSubmit={isEdit ? updateSiswa : tambahSiswa} style={{ marginBottom: "20px", textAlign:`center` }}>
         <input placeholder="Kode" value={form.kode_siswa}
-          onChange={(e)=>setForm({...form, kode_siswa:e.target.value})}/>
+          onChange={(e) => setForm({ ...form, kode_siswa: e.target.value })}
+          disabled={isEdit} // jangan ubah kode saat edit
+        />
         <input placeholder="Nama" value={form.nama_siswa}
-          onChange={(e)=>setForm({...form, nama_siswa:e.target.value})}/>
+          onChange={(e) => setForm({ ...form, nama_siswa: e.target.value })} />
         <input placeholder="Alamat" value={form.alamat_siswa}
-          onChange={(e)=>setForm({...form, alamat_siswa:e.target.value})}/>
+          onChange={(e) => setForm({ ...form, alamat_siswa: e.target.value })} />
         <input type="date" value={form.tgl_siswa}
-          onChange={(e)=>setForm({...form, tgl_siswa:e.target.value})}/>
+          onChange={(e) => setForm({ ...form, tgl_siswa: e.target.value })} />
         <input placeholder="Jurusan" value={form.jurusan_siswa}
-          onChange={(e)=>setForm({...form, jurusan_siswa:e.target.value})}/>
-        <button type="submit">Tambah</button>
+          onChange={(e) => setForm({ ...form, jurusan_siswa: e.target.value })} />
+        <button type="submit">{isEdit ? "Update" : "Tambah"}</button>
+
+        {/* Tombol batal saat mode edit */}
+        {isEdit && (
+          <button type="button" onClick={() => {
+            setIsEdit(false);
+            setForm({ kode_siswa:"", nama_siswa:"", alamat_siswa:"", tgl_siswa:"", jurusan_siswa:"" });
+          }} style={{ marginLeft: "10px" }}>
+            Batal
+          </button>
+        )}
       </form>
 
       {/* Tabel Data */}
@@ -87,10 +100,11 @@ function App() {
               <td>{s.kode_siswa}</td>
               <td>{s.nama_siswa}</td>
               <td>{s.alamat_siswa}</td>
-              <td>{s.tgl_siswa?.substring(0,10)}</td>
+              <td>{s.tgl_siswa?.substring(0, 10)}</td>
               <td>{s.jurusan_siswa}</td>
               <td>
-                <button onClick={()=>hapusSiswa(s.kode_siswa)}>Hapus</button>
+                <button onClick={() => editSiswa(s)}>Edit</button>
+                <button onClick={() => hapusSiswa(s.kode_siswa)} style={{ marginLeft: "5px" }}>Hapus</button>
               </td>
             </tr>
           ))}
@@ -100,4 +114,4 @@ function App() {
   );
 }
 
-export default App
+export default App;

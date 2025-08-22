@@ -13,11 +13,12 @@ CREATE TABLE IF NOT EXISTS dt_siswa(
 
 INSERT INTO dt_siswa 
 	(nama_siswa, alamat_siswa, tgl_siswa, jurusan_siswa) VALUES
-    ('Dzakariya', 'Cimahi Selatan', '31-Januari-2005', 'DKV'),
-    ('Rahmat Hidayat', 'Cimahi Utara', '20-Januari-2005', 'Elektro'),
-    ('Fauzia Firdaus', 'Parongpong', '28-Februari-2005', 'Elektro'),
-    ('Nada Nisrina', 'Cilamu', '15-Maret-2005', 'DKV'),
-    ('Septi Firyal', 'Cimareme', '11-Oktober-2005', 'Elektro');
+    ('Dzakariya Rahma', 'Cimahi Selatan', '2005-02-28', 'DKV'),
+    ('Rahmat Hidayat', 'Cimahi Utara', '2005-02-28' , 'Elektro'),
+    ('Fauzia Firdaus', 'Parongpong', '2005-02-28' , 'Elektro'),
+    ('Nada Nisrina', 'Cilame', '2005-02-28' , 'DKV'),
+    ('Rizki Rahmawati', 'Baros', '2005-02-28' , 'Tata Boga'),
+    ('Septi Firyal', 'Cimareme', '2005-02-28' , 'Elektro');
     
 SELECT * 
 	FROM dt_siswa;
